@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Button } from 'react-bootstrap';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { add, remove } from './slices/pokemon.slice';
-import './styles/App.css';
 
 const App: React.FC<unknown> = () => {
 
@@ -40,50 +39,32 @@ const App: React.FC<unknown> = () => {
   }
 
   return (
-    <div id="pokedexContainer">
-      <div id="pokedex">
-        <div id="pokedexTop">
-          <button id="pokedexTopBigGreenButton"/>
-          <button id="pokedexTopLittleRedButton"/>
-          <button id="pokedexTopLittleYellowButton"/>
-          <button id="pokedexTopLittleGreenButton"/>
-        </div>
-        <div id="pokedexBottom">
-          <div id="pokedexScreenContainer">
-            <div id="pokedexScreenTop">PokemonImage</div>
-            <div id="pokedexScreenBottomContainer">
-              <div id="pokedexScreenBottomLeft">
-                <div id="pokedexAttack">ATTACK</div>
-                <div id="pokedexDefense">DEFENSE</div>
-                <div id="pokedexSpeed">SPEED</div>
-                <div id="pokedexSPAttack">SP. ATK</div>
-                <div id="pokedexSPDefense">SP. DEF</div>
-              </div>
-              <div id="pokedexScreenBottomRight">
-                <div id="pokedexType1">TYPE I</div>
-                <div id="pokedexType2">TYPE II</div>
-                <div id="pokedexOGRegion">REGION</div>
-              </div>
-            </div>
-          </div>
-          <div id="pokedexButtons">
-            <div id="pokedexDirectionals">
-              <button id="pokedexDirectionalLeft"/>
-              <button id="pokedexDirectionalUp"/>
-              <button id="pokedexDirectionalRight"/>
-              <button id="pokedexDirectionalDown"/>
-              <button id="pokedexDirectionalDummy"/>
-            </div>
-            <div id="pokedexButtonsLeft">
-              <button id="pokedexMiniScreenLeft"/>
-              <button id="pokedexStart"/>
-              <button id="pokedexSelect"/>
-              <button id="pokedexBlackButton"/>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div id="pokedexRight">Right</div>
+    <div>
+      <Form onSubmit={(e) => handleSubmit(e)}>
+        <Form.Group className="mb-3">
+          <Form.Label>Pokemon Name</Form.Label>
+          <Form.Control required type="text" placeholder="arcanine" onChange={(e) => setName(e.target.value)}/>
+        </Form.Group>
+        <Button variant="primary" type="submit">
+          Search for Pokemon
+        </Button>
+        <Button variant="secondary" onClick={() => handleRemove()}>
+          Remove Pokemon
+        </Button>
+      </Form>
+      {
+        pokemonState.map( pokemon => (
+          <>
+            <br />
+            <p>
+              id: {pokemon.id} <br/>
+              name: {pokemon.name} <br/>
+              height: {pokemon.height} <br/>
+              weight: {pokemon.weight} <br/>
+            </p>
+          </>
+        ))
+      }
     </div>
   );
 }
